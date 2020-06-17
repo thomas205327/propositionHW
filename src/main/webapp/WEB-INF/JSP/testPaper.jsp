@@ -44,12 +44,12 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
         for(var i=0;i<JSON.parse(localStorage.getItem('multipleChoice')).length;i++) {
             document.getElementById("multipleChoice").innerHTML += "" + i+1 +"、"+ JSON.parse(localStorage.getItem('multipleChoice'))[i].question +
                 "<br>(A)" + JSON.parse(localStorage.getItem('multipleChoice'))[i].answerA + "&nbsp;&nbsp;(B)" + JSON.parse(localStorage.getItem('multipleChoice'))[i].answerB + "&nbsp;&nbsp;(C)"
-                + JSON.parse(localStorage.getItem('multipleChoice'))[i].answerC + "&nbsp;&nbsp;(D)" + JSON.parse(localStorage.getItem('multipleChoice'))[i].answerD + "&nbsp;&nbsp;"
+                + JSON.parse(localStorage.getItem('multipleChoice'))[i].answerC + "&nbsp;&nbsp;(D)" + JSON.parse(localStorage.getItem('multipleChoice'))[i].answerD + "&nbsp;&nbsp;<br>"
         }
 
         document.getElementById("rightAndWrong").innerHTML = "";
         for(var i=0;i<JSON.parse(localStorage.getItem('rightAndWrong')).length;i++) {
-            document.getElementById("rightAndWrong").innerHTML += "" + i+1 +"、(&nbsp;)"+ JSON.parse(localStorage.getItem('rightAndWrong'))[i].question +"";
+            document.getElementById("rightAndWrong").innerHTML += "" + i+1 +"、(&nbsp;)"+ JSON.parse(localStorage.getItem('rightAndWrong'))[i].question +"<br>";
         }
 
         document.getElementById("questionsAndAnswers").innerHTML = "";
@@ -59,7 +59,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 
         document.getElementById("stuffQuestion").innerHTML = "";
         for(var i=0;i<JSON.parse(localStorage.getItem('stuffQuestion')).length;i++) {
-            document.getElementById("stuffQuestion").innerHTML += "" + i+1 +"、"+ JSON.parse(localStorage.getItem('stuffQuestion'))[i].question +"";
+            document.getElementById("stuffQuestion").innerHTML += "" + i+1 +"、"+ JSON.parse(localStorage.getItem('stuffQuestion'))[i].question +"<br>";
         }
     }
 </script>
