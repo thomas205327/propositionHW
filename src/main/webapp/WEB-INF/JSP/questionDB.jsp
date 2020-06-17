@@ -116,7 +116,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function(returnData) {
-                window.alert("Success!");
+                window.alert("新增成功!");
                 window.location.reload();
             },
             error: function(xhr, ajaxOptions, thrownError) {
@@ -152,7 +152,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function(returnData) {
-                window.alert("Success!");
+                window.alert("刪除成功!");
                 window.location.reload();
             },
             error: function(xhr, ajaxOptions, thrownError) {
@@ -205,7 +205,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function(returnData) {
-                window.alert("Success!");
+                window.alert("修改成功!");
                 window.location.reload();
             },
             error: function(xhr, ajaxOptions, thrownError) {
