@@ -23,10 +23,10 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
     <link rel="stylesheet" href="https://127.0.0.1:8088/css/style-desktop.css" />
     <link rel="stylesheet" href="https://127.0.0.1:8088/css/skel-noscript.css" />
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="https://127.0.0.1:8088/js/skel.min.js"></script>
-    <script src="https://127.0.0.1:8088/js/skel-panels.min.js"></script>
-    <script src="https://127.0.0.1:8088/js/init.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://127.0.0.1:8088/js/skel.min.js"></script>
+    <script src="http://127.0.0.1:8088/js/skel-panels.min.js"></script>
+    <script src="http://127.0.0.1:8088/js/init.js"></script>
 <%--    <noscript>--%>
 
         <%--        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">--%>
