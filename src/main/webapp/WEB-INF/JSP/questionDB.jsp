@@ -330,7 +330,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
         <!-- Nav -->
         <nav id="nav">
             <ul>
-                <li class="active"><a href="index.html">首頁</a></li>
+                <li class="active"><a href="/">首頁</a></li>
                 <li><a href="propositionWeb">考卷匯出</a></li>
                 <li><a href="questionDB">題目庫</a></li>
             </ul>
