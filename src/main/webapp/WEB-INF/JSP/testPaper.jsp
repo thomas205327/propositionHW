@@ -59,6 +59,31 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             document.getElementById("stuffQuestion").innerHTML += "" + i+1 +"、"+ JSON.parse(localStorage.getItem('stuffQuestion'))[i].question +"<br>";
         }
     }
+
+    function AllAreaWord() {
+        var oWD = new ActiveXObject("Word.Application");
+        var oDC = oWD.Documents.Add("", 0, 1);
+        var oRange = oDC.Range(0, 1);
+        var sel = document.body.createTextRange();
+        sel.moveToElementText(main);
+        sel.select();
+        sel.execCommand("Copy");
+        oRange.Paste();
+        oWD.Application.Visible = true;
+        var filePath = showDialog();
+
+        if (filePath) docObj.SaveAs(filePath);
+
+        function showDialog() {
+
+            var dial = oWD.FileDialog(2);
+            return dial.show() == -1 ? dial.SelectedItems(1) : '';
+
+
+//window.close();
+        }
+    }
+
 </script>
 <!-- Main -->
 <div id="main" onload="ShowQuestion()">
@@ -104,8 +129,9 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
                     </p>
                 </section>
             </div>
-
         </div>
+        <input type="button" class="button button-style1" onclick="javascript:AllAreaWord();"
+               value="匯出頁面指定區域內容到Word">
     </div>
 </div>
 
