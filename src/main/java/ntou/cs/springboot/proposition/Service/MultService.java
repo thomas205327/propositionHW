@@ -23,7 +23,7 @@ public class MultService {
     }
 
     public MultipleChoice getMultipleChoiceById(String id){
-        return multipleChoiceRepository.findByIdContainingIgnoreCase(id);
+        return multipleChoiceRepository.findById(id).get();
     }
 
     public MultipleChoice createMultipleChoice(MultipleChoice request){

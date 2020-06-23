@@ -20,6 +20,12 @@ public class RightAndWrongController {
     @Autowired
     private RightAndWrongService rightAndWrongService;
 
+    @GetMapping(value = "/rightAndWrong/{id}")
+    public ResponseEntity<RightAndWrong> getRightAndWrongById(@PathVariable String id){
+        RightAndWrong multipleChoice = rightAndWrongService.getRightAndWrongById(id);
+        return ResponseEntity.ok(multipleChoice);
+    }
+
     @GetMapping(value = "/rightAndWrong/{grade}/{subject}")
     public ResponseEntity<List<RightAndWrong>> getRightAndWrong(@PathVariable String grade, @PathVariable String subject){
         List<RightAndWrong> rightAndWrong = rightAndWrongService.getRightAndWrong(grade, subject);

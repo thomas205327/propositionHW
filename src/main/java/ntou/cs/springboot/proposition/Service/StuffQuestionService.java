@@ -21,7 +21,7 @@ public class StuffQuestionService {
     }
 
     public StuffQuestion getStuffQuestionById(String id){
-        return stuffQuestionRepository.findByIdContainingIgnoreCase(id);
+        return stuffQuestionRepository.findById(id).get();
     }
 
     public StuffQuestion createStuffQuestion(StuffQuestion request){

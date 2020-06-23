@@ -22,6 +22,13 @@ public class MultController {
     @Autowired
     private MultService multService;
 
+    @GetMapping(value = "/multipleChoice/{id}")
+    public ResponseEntity<MultipleChoice> getMultipleChoiceById(@PathVariable String id){
+        MultipleChoice multipleChoice = multService.getMultipleChoiceById(id);
+        System.out.println(multipleChoice);
+        return ResponseEntity.ok(multipleChoice);
+    }
+
     //以年級科目進行搜尋  呈現多個
     @GetMapping(value = "/multipleChoice/{grade}/{subject}")
     public ResponseEntity<List<MultipleChoice>> getMultipleChoice(@PathVariable String grade, @PathVariable String subject){

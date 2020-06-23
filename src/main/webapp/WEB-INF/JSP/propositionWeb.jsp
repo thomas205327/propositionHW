@@ -50,8 +50,8 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             scroll-behavior: smooth;
             background-color: #eaeaea;
             display: block;
-            height: 500px;
-            overflow-y: scroll;
+            max-height: 500px;
+            /*height: 500px;*/
             scroll-behavior: smooth;
             text-align: left;
             width: 750px;
@@ -84,30 +84,6 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
         localStorage.setItem("rightAndWrong",JSON.stringify(questionsForRightAndWrong));
         localStorage.setItem("stuffQuestion",JSON.stringify(questionsForStuffQuestion));
         window.alert("儲存成功!");
-        // var requestURL = "/propositionWeb/testPaper";
-        // var dataJSON = {};
-        //
-        // dataJSON["questionsAndAnswers"] = questionsForQuestionAndAnswers;
-        // dataJSON["multipleChoice"] = questionsForMultipleChoice;
-        // dataJSON["rightAndWrong"] = questionsForRightAndWrong;
-        // dataJSON["stuffQuestion"] = questionsForStuffQuestion;
-        //
-        // console.log(JSON.stringify(dataJSON));
-        //
-        // $.ajax({ // Use Ajax to POST data
-        //     url: requestURL,
-        //     data: JSON.stringify(dataJSON),
-        //     type: "POST",
-        //     dataType: "json",
-        //     contentType: "application/json;charset=utf-8",
-        //     success: function(returnData) {
-        //         window.alert("Success!");
-        //     },
-        //     error: function(xhr, ajaxOptions, thrownError) {
-        //         console.log(xhr.status);
-        //         console.log(thrownError);
-        //     }
-        // });
     }
     
     function deleteQuestion() {
@@ -116,8 +92,11 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             for(var i = 0;i<multipleChoice;i++){
                 var questions = questionsForMultipleChoice[i];
                 if(questions.id == point){
-                    questionsForMultipleChoice = questionsForMultipleChoice.splice(i,1);
+                    console.log("Debug開始");
+                    console.log("i:"+ i);
+                    questionsForMultipleChoice.splice(i,1);   //拿東西等於會變成刪掉的那個
                     document.getElementById("MultipleChoice").value = document.getElementById("MultipleChoice").value - 1;
+                    console.log(questionsForMultipleChoice);
                     break;
                 }
             }
@@ -126,7 +105,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             for(var i = 0;i<stuffQuestion;i++){
                 var questions = questionsForStuffQuestion[i];
                 if(questions.id == point){
-                    questionsForStuffQuestion = questionsForStuffQuestion.splice(i,1);
+                    questionsForStuffQuestion.splice(i,1);
                     document.getElementById("StuffQuestion").value = document.getElementById("StuffQuestion").value - 1;
                     break;
                 }
@@ -136,7 +115,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             for(var i = 0;i<questionsAndAnswers;i++){
                 var questions = questionsForQuestionAndAnswers[i];
                 if(questions.id == point){
-                    questionsForQuestionAndAnswers = questionsForQuestionAndAnswers.splice(i,1);
+                    questionsForQuestionAndAnswers.splice(i,1);
                     document.getElementById("QuestionsAndAnswers").value = document.getElementById("QuestionsAndAnswers").value - 1;
                     break;
                 }
@@ -146,19 +125,170 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             for(var i = 0;i<rightAndWrong;i++){
                 var questions = questionsForRightAndWrong[i];
                 if(questions.id == point){
-                    questionsForRightAndWrong = questionsForRightAndWrong.splice(i,1);
+                    questionsForRightAndWrong.splice(i,1);
                     document.getElementById("RightAndWrong").value = document.getElementById("RightAndWrong").value - 1;
                     break;
                 }
             }
         }
-        preview();
+
+        $('#QuestionsAndAnswersShow').empty();
+        $('#MultipleChoiceShow').empty();
+        $('#RightAndWrongShow').empty();
+        $('#StuffQuestionShow').empty();
+        var multipleChoice = document.getElementById("MultipleChoice").value;
+        var rightAndWrong = document.getElementById("RightAndWrong").value;
+        var questionGroup = document.getElementById("QuestionGroup").value;
+        var questionsAndAnswers = document.getElementById("QuestionsAndAnswers").value;
+        var stuffQuestion = document.getElementById("StuffQuestion").value;
+
+        for(var i = 0;i<multipleChoice;i++){
+            var type = "選擇題";
+            var questionId = "questionId" + questionsForMultipleChoice[i].id;
+            $('#MultipleChoiceShow').append('<button value ='+questionsForMultipleChoice[i].id+'  style="width:750px;text-align:left;" ' +
+                'onclick=pointChange("'+questionId+'","'+type+'")>'+type+'' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+questionsForMultipleChoice[i].question+'</button>');
+        }
+
+        for(var i = 0;i<rightAndWrong;i++){
+            var type = "是非題";
+            var questionId = "questionId" + questionsForRightAndWrong[i].id;
+            $('#RightAndWrongShow').append('<button value ='+questionsForRightAndWrong[i].id+'  style="width:750px;text-align:left;" ' +
+                'onclick=pointChange("'+questionId+'","'+type+'")>'+type+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+questionsForRightAndWrong[i].question+'</button>');
+        }
+
+        for(var i = 0;i<questionsAndAnswers;i++){
+            var type = "問答題";
+            var questionId = "questionId" + questionsForQuestionAndAnswers[i].id;
+            $('#QuestionsAndAnswersShow').append('<button value ='+questionsForQuestionAndAnswers[i].id+'  ' +
+                'style="width:750px;text-align:left;" onclick=pointChange("'+questionId+'","'+type+'")>'+type+'' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+questionsForQuestionAndAnswers[i].question+'</button>');
+        }
+
+        for(var i = 0;i<stuffQuestion;i++){
+            var type = "填充題";
+            var questionId = "questionId" + questionsForStuffQuestion[i].id;
+            $('#StuffQuestionShow').append('<button value ='+questionsForStuffQuestion[i].id+'  style="width:750px;text-align:left;" ' +
+                'onclick=pointChange("'+questionId+'","'+type+'")>'+type+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+questionsForStuffQuestion[i].question+'</button>');
+        }
     }
     
     function pointChange(id, type) {
         var idText = id.split("questionId");
         point = idText[1];
         questionType = type;
+    }
+
+    function addQuestion() {
+        var id = document.getElementById("addQuestion").value;
+        var question = document.getElementById("questionAdd").value;
+        console.log(id);
+        console.log(question);
+        if(question == 2){
+            var url = "/multipleChoice/"+id; // test url
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                // data:restReq,
+                success: function (data) {
+                    questionsForMultipleChoice[questionsForMultipleChoice.length] = data;
+                    document.getElementById("MultipleChoice").value = parseInt(document.getElementById("MultipleChoice").value) + 1;
+                    console.log("已成功匯出");
+                    refresh();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }else if(question == 1){
+                var url = "/rightAndWrong/"+id; // test url
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "json",
+                    // data:restReq,
+                    success: function (data) {
+                        questionsForRightAndWrong[questionsForRightAndWrong.length] = data;
+                        document.getElementById("RightAndWrong").value = parseInt(document.getElementById("RightAndWrong").value) + 1;
+                        refresh();
+                    }
+                });
+        }else if(question == 3){
+                    var url = "/questionsAndAnswers/"+id; // test url
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        dataType: "json",
+                        // data:restReq,
+                        success: function (data) {
+                            questionsForQuestionAndAnswers[questionsForQuestionAndAnswers.length] = data;
+                            document.getElementById("QuestionsAndAnswers").value = parseInt(document.getElementById("QuestionsAndAnswers").value) + 1;
+                            refresh();
+                        }
+                    });
+        }else if(question == 4){
+                        var url = "/stuffQuestion/"+id; // test url
+                        $.ajax({
+                            type: "GET",
+                            url: url,
+                            dataType: "json",
+                            // data:restReq,
+                            success: function (data) {
+                                questionsForStuffQuestion[questionsForStuffQuestion.length] = data;
+                                document.getElementById("StuffQuestion").value = parseInt(document.getElementById("StuffQuestion").value) + 1;
+                                refresh();
+                            }
+                        });
+        }
+    }
+
+    function refresh() {
+        console.log("開始清空");
+        $('#QuestionsAndAnswersShow').empty();
+        $('#MultipleChoiceShow').empty();
+        $('#RightAndWrongShow').empty();
+        $('#StuffQuestionShow').empty();
+        var multipleChoice = document.getElementById("MultipleChoice").value;
+        var rightAndWrong = document.getElementById("RightAndWrong").value;
+        var questionGroup = document.getElementById("QuestionGroup").value;
+        var questionsAndAnswers = document.getElementById("QuestionsAndAnswers").value;
+        var stuffQuestion = document.getElementById("StuffQuestion").value;
+
+        for(var i = 0;i<multipleChoice;i++){
+            var type = "選擇題";
+            var questionId = "questionId" + questionsForMultipleChoice[i].id;
+            $('#MultipleChoiceShow').append('<button value ='+questionsForMultipleChoice[i].id+'  style="width:750px;text-align:left;" ' +
+                'onclick=pointChange("'+questionId+'","'+type+'")>'+type+'' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+questionsForMultipleChoice[i].question+'</button>');
+        }
+
+        for(var i = 0;i<rightAndWrong;i++){
+            var type = "是非題";
+            var questionId = "questionId" + questionsForRightAndWrong[i].id;
+            $('#RightAndWrongShow').append('<button value ='+questionsForRightAndWrong[i].id+'  style="width:750px;text-align:left;" ' +
+                'onclick=pointChange("'+questionId+'","'+type+'")>'+type+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+questionsForRightAndWrong[i].question+'</button>');
+        }
+
+        for(var i = 0;i<questionsAndAnswers;i++){
+            var type = "問答題";
+            var questionId = "questionId" + questionsForQuestionAndAnswers[i].id;
+            $('#QuestionsAndAnswersShow').append('<button value ='+questionsForQuestionAndAnswers[i].id+'  ' +
+                'style="width:750px;text-align:left;" onclick=pointChange("'+questionId+'","'+type+'")>'+type+'' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+questionsForQuestionAndAnswers[i].question+'</button>');
+        }
+
+        for(var i = 0;i<stuffQuestion;i++){
+            var type = "填充題";
+            var questionId = "questionId" + questionsForStuffQuestion[i].id;
+            $('#StuffQuestionShow').append('<button value ='+questionsForStuffQuestion[i].id+'  style="width:750px;text-align:left;" ' +
+                'onclick=pointChange("'+questionId+'","'+type+'")>'+type+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+questionsForStuffQuestion[i].question+'</button>');
+        }
     }
 
     function preview() {
@@ -202,7 +332,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
                     var type = "問答題";//20
                     var question = questionsForQuestionAndAnswers[i].question;
                     var id = questionsForQuestionAndAnswers[i].id;
-                    console.log(questionsForQuestionAndAnswers);
+                    //console.log(questionsForQuestionAndAnswers);
                     var questionId = "questionId" + id;
                     $('#QuestionsAndAnswersShow').append('<button value ='+id+'  style="width:750px;text-align:left;" onclick=pointChange("'+questionId+'","'+type+'")>'+type+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+question+'</button>');
                     //$('#QuestionsAndAnswersShow').append('<li value ='+id+'>'+type+""+question+'</li>');
@@ -239,7 +369,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
                     var question = questionsForMultipleChoice[i].question;
                     var id = questionsForMultipleChoice[i].id;
                     var questionId = "questionId" + id;
-                    console.log(questionsForMultipleChoice);
+                    //console.log(questionsForMultipleChoice);
                     $('#MultipleChoiceShow').append('<button value ='+id+'  style="width:750px;text-align:left;" onclick=pointChange("'+questionId+'","'+type+'")>'+type+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+question+'</button>');
                 }
             },
@@ -274,7 +404,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
                     var question = questionsForRightAndWrong[i].question;
                     var id = questionsForRightAndWrong[i].id;
                     var questionId = "questionId" + id;
-                    console.log(questionsForRightAndWrong);
+                    //console.log(questionsForRightAndWrong);
                     $('#RightAndWrongShow').append('<button value ='+id+'  style="width:750px;text-align:left;" onclick=pointChange("'+questionId+'","'+type+'")>'+type+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+question+'</button>');
                 }
             },
@@ -309,7 +439,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
                     var question = questionsForStuffQuestion[i].question;
                     var id = questionsForStuffQuestion[i].id;
                     var questionId = "questionId" + id;
-                    console.log(questionsForStuffQuestion);
+                    //console.log(questionsForStuffQuestion);
                     $('#StuffQuestionShow').append('<button value ='+id+'  style="width:750px;text-align:left;" onclick=pointChange("'+questionId+'","'+type+'")>'+type+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+question+'</button>');
                 }
             },
@@ -317,10 +447,44 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 
             }
         })
-
-        //準備跑for 讓下面表格有東西
-
     }
+
+    function show() {
+        $('#addQuestion').empty();
+        var question;
+        if(document.getElementById("questionAdd").value == 2){
+            question = "multipleChoice"
+        } else if(document.getElementById("questionAdd").value == 1){
+            question = "rightAndWrong"
+        } else if(document.getElementById("questionAdd").value == 3){
+            question = "questionsAndAnswers"
+        } else {
+            question = "stuffQuestion"
+        }
+        var grade = document.getElementById("grade").value;
+        var subject = document.getElementById("subject").value;
+        var url = question + "/" + grade + "/" + subject; // test url
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            // data:restReq,
+            success: function(data) {
+                console.log(data);
+                for(var i = 0;i< data.length;i++){
+                    var questions = data[i];
+                    var question = questions.question;
+                    var id = questions.id;
+                    console.log(questions);
+                    $('#addQuestion').append('<option value ='+id+'>'+question+'</option>');
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+
 </script>
 <body>
 
@@ -432,6 +596,21 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
                         </div>
                     <input type="button" class="button button-style1" value="刪除點選的題目" onclick="deleteQuestion()"/>
                     <input type="button" class="button button-style1" value="儲存考卷題目資訊" onclick="gotoTestPaper()"/>
+                </section>
+                <section>
+                    <select id="questionAdd">
+                        <option value="1">是非題</option>
+                        <option value="2">選擇題</option>
+                        <option value="3">問答題</option>
+                        <option value="4">填充題</option>
+                    </select>
+                    <br>
+                    <input class="button button-style1" value="確定" onclick="show()"/>
+                    <br><br>
+                    <select id = "addQuestion">
+
+                    </select>
+                    <input type="button" class="button button-style1" value="新增點選的題目" onclick="addQuestion()"/>
                 </section>
             </div>
         </div>

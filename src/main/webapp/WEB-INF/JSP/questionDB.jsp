@@ -105,8 +105,8 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             dataJSON["question"] = document.getElementById("question").value;
             dataJSON["answer"] = document.getElementById("answer").value;
             dataJSON["img"] = $('#img')[0].value;
-            dataJSON["grade"] = document.getElementById("gradeReplace").value;
-            dataJSON["subject"] = document.getElementById("subjectReplace").value;
+            dataJSON["grade"] = document.getElementById("gradeAdd").value;
+            dataJSON["subject"] = document.getElementById("subjectAdd").value;
         }
 
         $.ajax({ // Use Ajax to POST data
@@ -194,8 +194,8 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
             dataJSON["question"] = document.getElementById("question").value;
             dataJSON["answer"] = document.getElementById("answer").value;
             dataJSON["img"] = $('#imgReplace')[0].value;
-            dataJSON["grade"] = document.getElementById("gradeAdd").value;
-            dataJSON["subject"] = document.getElementById("subjectAdd").value;
+            dataJSON["grade"] = document.getElementById("gradeReplace").value;
+            dataJSON["subject"] = document.getElementById("subjectReplace").value;
         }
 
         $.ajax({ // Use Ajax to POST data

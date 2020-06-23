@@ -21,7 +21,7 @@ public class RightAndWrongService {
     }
 
     public RightAndWrong getRightAndWrongById(String id){
-        return  rightAndWrongRepository.findByIdContainingIgnoreCase(id);
+        return  rightAndWrongRepository.findById(id).get();
     }
 
     public RightAndWrong createRightAndWrong(RightAndWrong request){

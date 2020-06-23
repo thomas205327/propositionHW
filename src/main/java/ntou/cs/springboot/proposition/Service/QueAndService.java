@@ -21,7 +21,7 @@ public class QueAndService {
     }
 
     public QuestionsAndAnswers getQuestionsAndAnswersById(String id){
-        return questionsAndAnswersRepository.findByIdContainingIgnoreCase(id);
+        return questionsAndAnswersRepository.findById(id).get();
     }
 
     public QuestionsAndAnswers createQuestionsAndAnswers(QuestionsAndAnswers request){

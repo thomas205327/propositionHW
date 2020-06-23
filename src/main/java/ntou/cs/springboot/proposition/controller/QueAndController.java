@@ -20,6 +20,12 @@ public class QueAndController {
     @Autowired
     private QueAndService queAndService;
 
+    @GetMapping(value = "/questionsAndAnswers/{id}")
+    public ResponseEntity<QuestionsAndAnswers> getQuestionsAndAnswersById(@PathVariable String id){
+        QuestionsAndAnswers multipleChoice = queAndService.getQuestionsAndAnswersById(id);
+        return ResponseEntity.ok(multipleChoice);
+    }
+
     @GetMapping(value = "questionsAndAnswers/{grade}/{subject}")
     public ResponseEntity<List<QuestionsAndAnswers>> getQuestionsAndAnswers(@PathVariable String grade, @PathVariable String subject){
         List<QuestionsAndAnswers> questionsAndAnswers = queAndService.getQuestionsAndAnswers(grade, subject);
